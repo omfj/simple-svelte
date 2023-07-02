@@ -8,13 +8,17 @@ export const load = (async ({ params }) => {
 		throw error(404, 'User not found');
 	}
 
-	const user = getUserByUsername(username);
+	const user = await getUserByUsername(username);
 
 	if (!user) {
 		throw error(404, 'User not found');
 	}
 
 	return {
-		user
+		user: {
+			id: user.id,
+			username: user.username,
+			email: user.email
+		}
 	};
 }) satisfies Load;

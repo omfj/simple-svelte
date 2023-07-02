@@ -1,10 +1,10 @@
-// See https://kit.svelte.dev/docs/types#app
-// for information about these interfaces
+import type { UserSchema } from '$lib/validators/user';
+
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			user: User | undefined;
+			user: UserSchema | undefined;
 		}
 		// interface PageData {}
 		// interface Platform {}

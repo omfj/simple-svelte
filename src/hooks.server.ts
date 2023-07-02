@@ -1,17 +1,22 @@
-import { getUserBySessionId } from '$lib/db/queries';
+import { getUserBySessionId, validateSession } from '$lib/db/queries';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle = (async ({ event, resolve }) => {
 	// Get the session ID from the cookies
 	const sessionId = event.cookies.get('session');
+
 	// If there is a session ID, get the user from the backend
 	if (sessionId) {
-		const id = parseInt(sessionId, 10);
+		const validSesssion = await validateSession(sessionId);
 
-		if (!isNaN(id)) {
-			event.locals.user = await getUserBySessionId(id);
+		// If the session is invalid, delete the session cookie
+		if (!validSesssion) {
+			event.locals.user = undefined;
+		} else {
+			event.locals.user = await getUserBySessionId(sessionId);
 		}
 	}
+
 	// If there is no session ID, delete the session cookie
 	if (!event.locals.user) event.cookies.delete('session');
 

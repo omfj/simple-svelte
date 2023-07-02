@@ -1,23 +1,20 @@
-import { eq, or } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { db } from './drizzle';
-import { sessions, users } from './schemas';
+import { sessions, users, type Session, type User } from './schema';
 import { hash } from '../utils/hash';
 
-export const ERRORS = {
-	USER_ALREADY_EXISTS: 'USER_ALREADY_EXISTS',
-	USER_NOT_FOUND: 'USER_NOT_FOUND',
-	EMAIL_OR_PASSWORD_INCORRECT: 'EMAIL_OR_PASSWORD_INCORRECT',
-	SESSION_NOT_FOUND: 'SESSION_NOT_FOUND'
-} as const;
+export const createUser = async (
+	email: User['email'],
+	username: User['username'],
+	password: User['password']
+): Promise<{ id: string } | undefined> => {
+	const existingUser = await db.query.users.findFirst({
+		where: (users, { or }) => or(eq(users.email, email), eq(users.username, username))
+	});
 
-export const createUser = async (email: string, username: string, password: string) => {
-	const usersWithEmailOrUsername = await db
-		.select()
-		.from(users)
-		.where(or(eq(users.email, email), eq(users.username, username)));
-
-	if (usersWithEmailOrUsername.length > 0) {
-		throw new Error(ERRORS.USER_ALREADY_EXISTS);
+	if (existingUser) {
+		// User already exists
+		return undefined;
 	}
 
 	const hashedPassword = hash(password);
@@ -30,29 +27,33 @@ export const createUser = async (email: string, username: string, password: stri
 			password: hashedPassword
 		})
 		.returning({
-			insertedId: users.id
+			id: users.id
 		});
 
 	return user[0];
 };
 
-export const validateUser = async (email: string, password: string) => {
-	const user = (await db.select().from(users).where(eq(users.email, email)))[0];
+export const validateUser = async (username: User['email'], password: User['password']) => {
+	const user = await db.query.users.findFirst({
+		where: (users, { eq }) => eq(users.username, username)
+	});
 
 	if (!user) {
-		throw new Error(ERRORS.EMAIL_OR_PASSWORD_INCORRECT);
+		// User not found
+		return null;
 	}
 
 	const hashedPassword = hash(password);
 
 	if (user.password !== hashedPassword) {
-		throw new Error(ERRORS.EMAIL_OR_PASSWORD_INCORRECT);
+		// Passwords don't match
+		return null;
 	}
 
 	return user;
 };
 
-export const createSession = async (userId: number, expires: Date) => {
+export const createSession = async (userId: User['id'], expires: Session['expires']) => {
 	const session = await db
 		.insert(sessions)
 		.values({
@@ -60,31 +61,62 @@ export const createSession = async (userId: number, expires: Date) => {
 			expires
 		})
 		.returning({
-			instertedId: sessions.id
+			id: sessions.id
 		});
 
 	return session[0];
 };
 
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmail = async (email: User['email']): Promise<User | undefined> => {
 	const usersWithEmail = await db.select().from(users).where(eq(users.email, email));
 
 	return usersWithEmail[0];
 };
 
-export const getUserByUsername = async (username: string) => {
-	const usersWithUsername = await db.select().from(users).where(eq(users.username, username));
+export const getUserByUsername = async (username: User['username']): Promise<User | undefined> => {
+	const user = await db.query.users.findFirst({
+		where: (users, { eq }) => eq(users.username, username)
+	});
 
-	return usersWithUsername[0];
+	return user;
 };
 
-export const getUserBySessionId = async (sessionId: number) => {
-	const session = await db.select().from(sessions).where(eq(sessions.id, sessionId));
-	const user = await db.select().from(users).where(eq(users.id, session[0].userId));
+export const getUserBySessionId = async (sessionId: Session['id']): Promise<User | undefined> => {
+	const session = await db.query.sessions.findFirst({
+		where: (sessions, { eq }) => eq(sessions.id, sessionId)
+	});
 
-	return user[0] ?? undefined;
+	if (!session) {
+		return undefined;
+	}
+
+	const user = await db.query.users.findFirst({
+		where: (users, { eq }) => eq(users.id, session.userId)
+	});
+
+	return user;
 };
 
-export const deleteSession = async (sessionId: number) => {
+export const deleteSession = async (sessionId: Session['id']): Promise<void> => {
 	await db.delete(sessions).where(eq(sessions.id, sessionId));
+};
+
+export const validateSession = async (sessionId: Session['id']): Promise<boolean> => {
+	const session = await db.query.sessions.findFirst({
+		where: (sessions, { eq }) => eq(sessions.id, sessionId)
+	});
+
+	if (!session) {
+		// Session not found
+		return false;
+	}
+
+	const now = new Date();
+
+	if (session.expires < now) {
+		await deleteSession(sessionId);
+		return false;
+	}
+
+	return true;
 };

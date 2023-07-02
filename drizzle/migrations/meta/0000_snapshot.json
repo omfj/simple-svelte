@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "157b4c68-652e-44ac-b77b-7802c4bd553a",
+  "id": "f793ceb4-d4f1-4937-a2bf-0c1676325484",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "posts": {
@@ -10,15 +10,16 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "user_id": {
           "name": "user_id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "title": {
           "name": "title",
@@ -71,13 +72,14 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "user_id": {
           "name": "user_id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
@@ -119,9 +121,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "email": {
           "name": "email",
