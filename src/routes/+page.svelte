@@ -25,7 +25,7 @@
 			> for styling
 		</li>
 		<li>
-			<a class="text-blue-500 hover:no-underline underline" href="https://orm.drizzle.com/"
+			<a class="text-blue-500 hover:no-underline underline" href="https://orm.drizzle.team/"
 				>Drizzle ORM</a
 			> for database access
 		</li>
@@ -34,7 +34,9 @@
 			the frontend
 		</li>
 		<li>
-			<a class="text-blue-500 hover:no-underline underline" href="https://svelte.dev/">SvelteKit</a>
+			<a class="text-blue-500 hover:no-underline underline" href="https://kit.svelte.dev/"
+				>SvelteKit</a
+			>
 			for the backend
 		</li>
 		<li>
@@ -43,7 +45,9 @@
 			> for type-safety
 		</li>
 		<li>
-			<a class="text-blue-500 hover:no-underline underline" href="#">SuperForm</a> for form handling
+			<a class="text-blue-500 hover:no-underline underline" href="https://superforms.rocks/"
+				>SuperForm</a
+			> for form handling
 		</li>
 	</ul>
 </div>
