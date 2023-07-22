@@ -38,9 +38,9 @@ export const actions = {
 			});
 		}
 
-		const session = await createSession(user.id, new Date(Date.now() + DEFAULT_SESSION_LENGTH));
+		const sessionId = await createSession(user.id, new Date(Date.now() + DEFAULT_SESSION_LENGTH));
 
-		cookies.set('session', session.id);
+		cookies.set('session', sessionId);
 
 		return {
 			form

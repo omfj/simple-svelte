@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import Header from '$lib/components/Header.svelte';
-	import { Toaster } from 'svelte-french-toast';
+	import { Toaster } from 'svelte-sonner';
 	import { user } from '$lib/stores/user';
 	import type { LayoutServerData } from './$types';
 

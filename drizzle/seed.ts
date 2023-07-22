@@ -1,1 +1,1 @@
-console.log('TODO: Implement seed script');
+console.log('🌱 TODO: Implement seed script');
