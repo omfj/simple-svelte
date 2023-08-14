@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
-import { createSession, validateUser } from '$lib/db/queries';
+import { createSession, validateUser } from '$lib/db/auth';
 import { DEFAULT_SESSION_LENGTH } from '$lib/constants';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 import { loginSchema } from '$lib/validators/login';
@@ -28,19 +28,38 @@ export const actions = {
 
 		const { username, password } = form.data;
 
-		const user = await validateUser(username, password);
+		const { data: validateUserData, error: validateUserError } = await validateUser(
+			username,
+			password
+		);
 
-		if (!user) {
-			setError(form, 'username', 'Username or password incorrect');
-			setError(form, 'password', 'Username or password incorrect');
+		if (validateUserError) {
+			setError(form, 'username', validateUserError.message);
+			setError(form, 'password', validateUserError.message);
 			return fail(400, {
 				form
 			});
 		}
 
-		const sessionId = await createSession(user.id, new Date(Date.now() + DEFAULT_SESSION_LENGTH));
+		const { data: createSessionData, error: createSessionError } = await createSession(
+			validateUserData.user.id,
+			new Date(Date.now() + DEFAULT_SESSION_LENGTH)
+		);
 
-		cookies.set('session', sessionId);
+		if (createSessionError) {
+			setError(form, 'username', createSessionError.message);
+			setError(form, 'password', createSessionError.message);
+			return fail(400, {
+				form
+			});
+		}
+
+		cookies.set('session', createSessionData.sessionId, {
+			httpOnly: import.meta.env.PROD,
+			secure: import.meta.env.PROD,
+			sameSite: 'strict',
+			maxAge: DEFAULT_SESSION_LENGTH / 1000
+		});
 
 		return {
 			form

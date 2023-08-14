@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { deleteSession } from '$lib/db/queries';
+import { deleteSession } from '$lib/db/auth';
 
 export const load = (async ({ locals }) => {
 	if (locals.user) {

@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { createSession, createUser } from '$lib/db/queries';
+import { createSession, createUser } from '$lib/db/auth';
 import { DEFAULT_SESSION_LENGTH } from '$lib/constants';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 import { registerSchema } from '$lib/validators/register';
@@ -27,19 +27,41 @@ export const actions = {
 
 		const { username, email, password } = form.data;
 
-		const userId = await createUser(email, username, password);
+		const { data: createUserData, error: createUserError } = await createUser(
+			email,
+			username,
+			password
+		);
 
-		if (!userId) {
-			setError(form, 'username', 'Username or email already taken');
-			setError(form, 'email', 'Username or email already taken');
+		if (createUserError) {
+			setError(form, 'username', createUserError.message);
+			setError(form, 'email', createUserError.message);
+
 			return fail(400, {
 				form
 			});
 		}
 
-		const sessionId = await createSession(userId, new Date(Date.now() + DEFAULT_SESSION_LENGTH));
+		const { data: createSessionData, error: createSessionError } = await createSession(
+			createUserData.userId,
+			new Date(Date.now() + DEFAULT_SESSION_LENGTH)
+		);
 
-		cookies.set('session', sessionId);
+		if (createSessionError) {
+			setError(form, 'username', createSessionError.message);
+			setError(form, 'email', createSessionError.message);
+
+			return fail(400, {
+				form
+			});
+		}
+
+		cookies.set('session', createSessionData.sessionId, {
+			httpOnly: import.meta.env.PROD,
+			secure: import.meta.env.PROD,
+			sameSite: 'strict',
+			maxAge: DEFAULT_SESSION_LENGTH / 1000
+		});
 
 		return {
 			form

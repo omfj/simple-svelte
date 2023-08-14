@@ -13,20 +13,30 @@
 			{#if $user}
 				<li>
 					<a class="block p-2 rounded hover:bg-gray-100" href={`/user/${$user.username}`}
-						>👤 Profile</a
+						><span aria-hidden="true">👤</span>
+						Profile</a
 					>
 				</li>
 				<li>
 					<form action="/logout" method="POST" use:enhance>
-						<button class="block p-2 rounded hover:bg-gray-100" type="submit">🚪 Log out</button>
+						<button class="block p-2 rounded hover:bg-gray-100" type="submit">
+							<span aria-hidden="true">🚪</span>
+							Log out</button
+						>
 					</form>
 				</li>
 			{:else}
 				<li>
-					<a class="block p-2 rounded hover:bg-gray-100" href="/login">🔑 Log in</a>
+					<a class="block p-2 rounded hover:bg-gray-100" href="/login">
+						<span aria-hidden="true">🔑</span>
+						Log in</a
+					>
 				</li>
 				<li>
-					<a class="block p-2 rounded hover:bg-gray-100" href="/register">🔨 Register</a>
+					<a class="block p-2 rounded hover:bg-gray-100" href="/register">
+						<span aria-hidden="true">🔨</span>
+						Register</a
+					>
 				</li>
 			{/if}
 		</ul>

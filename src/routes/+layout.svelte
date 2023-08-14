@@ -13,6 +13,6 @@
 <Toaster />
 <Header />
 
-<main class="max-w-2xl mx-auto w-full">
+<main class="max-w-2xl mx-auto w-full px-4">
 	<slot />
 </main>

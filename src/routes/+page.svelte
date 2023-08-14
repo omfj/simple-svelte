@@ -2,6 +2,10 @@
 	import { user } from '$lib/stores/user';
 </script>
 
+<svelte:head>
+	<title>Home | Simple Svelte</title>
+</svelte:head>
+
 <div class="space-y-4">
 	<h1 class="text-3xl">Welcome to SimpleSvelte</h1>
 
