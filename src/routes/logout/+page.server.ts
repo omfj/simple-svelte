@@ -19,5 +19,5 @@ export const actions = {
 		cookies.delete('session');
 
 		throw redirect(303, '/');
-	}
+	},
 } satisfies Actions;

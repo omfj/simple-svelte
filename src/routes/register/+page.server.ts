@@ -13,7 +13,7 @@ export const load = (async ({ locals }) => {
 	const form = await superValidate(registerSchema);
 
 	return {
-		form
+		form,
 	};
 }) satisfies PageServerLoad;
 
@@ -30,7 +30,7 @@ export const actions = {
 		const { data: createUserData, error: createUserError } = await createUser(
 			email,
 			username,
-			password
+			password,
 		);
 
 		if (createUserError) {
@@ -38,13 +38,13 @@ export const actions = {
 			setError(form, 'email', createUserError.message);
 
 			return fail(400, {
-				form
+				form,
 			});
 		}
 
 		const { data: createSessionData, error: createSessionError } = await createSession(
 			createUserData.userId,
-			new Date(Date.now() + DEFAULT_SESSION_LENGTH)
+			new Date(Date.now() + DEFAULT_SESSION_LENGTH),
 		);
 
 		if (createSessionError) {
@@ -52,7 +52,7 @@ export const actions = {
 			setError(form, 'email', createSessionError.message);
 
 			return fail(400, {
-				form
+				form,
 			});
 		}
 
@@ -60,11 +60,11 @@ export const actions = {
 			httpOnly: import.meta.env.PROD,
 			secure: import.meta.env.PROD,
 			sameSite: 'strict',
-			maxAge: DEFAULT_SESSION_LENGTH / 1000
+			maxAge: DEFAULT_SESSION_LENGTH / 1000,
 		});
 
 		return {
-			form
+			form,
 		};
-	}
+	},
 } satisfies Actions;

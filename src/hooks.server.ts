@@ -20,7 +20,7 @@ export const handle = (async ({ event, resolve }) => {
 					id: data.user.id,
 					username: data.user.username,
 					email: data.user.email,
-					createdAt: data.user.createdAt
+					createdAt: data.user.createdAt,
 				};
 			}
 		}

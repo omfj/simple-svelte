@@ -21,21 +21,21 @@ type BaseResponse<T, E = BaseError> = Promise<
 type CreateUserFunction = (
 	email: string,
 	username: string,
-	password: string
+	password: string,
 ) => BaseResponse<{ userId: string }>;
 
 export const createUser: CreateUserFunction = async (email, username, password) => {
 	try {
 		const existingUser = await db.query.users.findFirst({
-			where: (users, { or }) => or(eq(users.email, email), eq(users.username, username))
+			where: (users, { or }) => or(eq(users.email, email), eq(users.username, username)),
 		});
 
 		if (existingUser) {
 			return {
 				data: null,
 				error: {
-					message: 'User with username or email already exists.'
-				}
+					message: 'User with username or email already exists.',
+				},
 			};
 		}
 
@@ -46,22 +46,22 @@ export const createUser: CreateUserFunction = async (email, username, password) 
 			.values({
 				email,
 				username,
-				password: hashedPassword
+				password: hashedPassword,
 			})
 			.returning();
 
 		return {
 			data: {
-				userId: user[0].id
+				userId: user[0].id,
 			},
-			error: null
+			error: null,
 		};
 	} catch (error) {
 		return {
 			data: null,
 			error: {
-				message: 'Could not reach database.'
-			}
+				message: 'Could not reach database.',
+			},
 		};
 	}
 };
@@ -71,15 +71,15 @@ type ValidateUserFunction = (username: string, password: string) => BaseResponse
 export const validateUser: ValidateUserFunction = async (username, password) => {
 	try {
 		const user = await db.query.users.findFirst({
-			where: (users, { eq }) => eq(users.username, username)
+			where: (users, { eq }) => eq(users.username, username),
 		});
 
 		if (!user) {
 			return {
 				data: null,
 				error: {
-					message: 'User not found.'
-				}
+					message: 'User not found.',
+				},
 			};
 		}
 
@@ -89,23 +89,23 @@ export const validateUser: ValidateUserFunction = async (username, password) => 
 			return {
 				data: null,
 				error: {
-					message: 'Invalid password.'
-				}
+					message: 'Invalid password.',
+				},
 			};
 		}
 
 		return {
 			data: {
-				user
+				user,
 			},
-			error: null
+			error: null,
 		};
 	} catch (error) {
 		return {
 			data: null,
 			error: {
-				message: 'Could not reach database.'
-			}
+				message: 'Could not reach database.',
+			},
 		};
 	}
 };
@@ -118,24 +118,24 @@ export const createSession: CreateSessionFunction = async (userId, expires) => {
 			.insert(sessions)
 			.values({
 				userId,
-				expires
+				expires,
 			})
 			.returning({
-				id: sessions.id
+				id: sessions.id,
 			});
 
 		return {
 			data: {
-				sessionId: session[0].id
+				sessionId: session[0].id,
 			},
-			error: null
+			error: null,
 		};
 	} catch (error) {
 		return {
 			data: null,
 			error: {
-				message: 'Could not reach database.'
-			}
+				message: 'Could not reach database.',
+			},
 		};
 	}
 };
@@ -145,30 +145,30 @@ type GetUserByEmailFunction = (email: string) => BaseResponse<{ user: User }>;
 export const getUserByEmail: GetUserByEmailFunction = async (email) => {
 	try {
 		const user = await db.query.users.findFirst({
-			where: (users, { eq }) => eq(users.email, email)
+			where: (users, { eq }) => eq(users.email, email),
 		});
 
 		if (!user) {
 			return {
 				data: null,
 				error: {
-					message: 'User not found.'
-				}
+					message: 'User not found.',
+				},
 			};
 		}
 
 		return {
 			data: {
-				user
+				user,
 			},
-			error: null
+			error: null,
 		};
 	} catch (error) {
 		return {
 			data: null,
 			error: {
-				message: 'Could not reach database.'
-			}
+				message: 'Could not reach database.',
+			},
 		};
 	}
 };
@@ -178,30 +178,30 @@ type GetUserByUsernameFunction = (username: string) => BaseResponse<{ user: User
 export const getUserByUsername: GetUserByUsernameFunction = async (username) => {
 	try {
 		const user = await db.query.users.findFirst({
-			where: (users, { eq }) => eq(users.username, username)
+			where: (users, { eq }) => eq(users.username, username),
 		});
 
 		if (!user) {
 			return {
 				data: null,
 				error: {
-					message: 'User not found.'
-				}
+					message: 'User not found.',
+				},
 			};
 		}
 
 		return {
 			data: {
-				user
+				user,
 			},
-			error: null
+			error: null,
 		};
 	} catch (error) {
 		return {
 			data: null,
 			error: {
-				message: 'Could not reach database.'
-			}
+				message: 'Could not reach database.',
+			},
 		};
 	}
 };
@@ -211,43 +211,43 @@ type GetUserBySessionIdFunction = (sessionId: string) => BaseResponse<{ user: Us
 export const getUserBySessionId: GetUserBySessionIdFunction = async (sessionId) => {
 	try {
 		const session = await db.query.sessions.findFirst({
-			where: (sessions, { eq }) => eq(sessions.id, sessionId)
+			where: (sessions, { eq }) => eq(sessions.id, sessionId),
 		});
 
 		if (!session) {
 			return {
 				data: null,
 				error: {
-					message: 'Session not found.'
-				}
+					message: 'Session not found.',
+				},
 			};
 		}
 
 		const user = await db.query.users.findFirst({
-			where: (users, { eq }) => eq(users.id, session.userId)
+			where: (users, { eq }) => eq(users.id, session.userId),
 		});
 
 		if (!user) {
 			return {
 				data: null,
 				error: {
-					message: 'User not found.'
-				}
+					message: 'User not found.',
+				},
 			};
 		}
 
 		return {
 			data: {
-				user
+				user,
 			},
-			error: null
+			error: null,
 		};
 	} catch (error) {
 		return {
 			data: null,
 			error: {
-				message: 'Could not reach database.'
-			}
+				message: 'Could not reach database.',
+			},
 		};
 	}
 };
@@ -263,7 +263,7 @@ type ValidateSessionFunction = (sessionId: string) => Promise<boolean>;
 export const validateSession: ValidateSessionFunction = async (sessionId) => {
 	try {
 		const session = await db.query.sessions.findFirst({
-			where: (sessions, { eq }) => eq(sessions.id, sessionId)
+			where: (sessions, { eq }) => eq(sessions.id, sessionId),
 		});
 
 		if (!session) {

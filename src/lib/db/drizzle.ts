@@ -6,9 +6,9 @@ import * as schema from './schema';
 const { Pool } = pg;
 
 const pool = new Pool({
-	connectionString: DATABASE_URL
+	connectionString: DATABASE_URL,
 });
 
 export const db = drizzle(pool, {
-	schema
+	schema,
 });

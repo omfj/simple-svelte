@@ -8,16 +8,16 @@ export const registerSchema = z
 			.string()
 			.regex(
 				new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$'),
-				'The password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number.'
+				'The password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number.',
 			),
-		passwordConfirm: z.string().min(1, 'Confirm your password.')
+		passwordConfirm: z.string().min(1, 'Confirm your password.'),
 	})
 	.superRefine(({ passwordConfirm, password }, ctx) => {
 		if (passwordConfirm !== password) {
 			ctx.addIssue({
 				code: 'custom',
 				message: 'Password and password confirmation must match.',
-				path: ['passwordConfirm', 'password']
+				path: ['passwordConfirm', 'password'],
 			});
 		}
 	});

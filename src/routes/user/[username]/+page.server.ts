@@ -19,7 +19,7 @@ export const load = (async ({ params }) => {
 			id: data.user.id,
 			username: data.user.username,
 			email: data.user.email,
-			createdAt: data.user.createdAt
-		}
+			createdAt: data.user.createdAt,
+		},
 	};
 }) satisfies Load;
