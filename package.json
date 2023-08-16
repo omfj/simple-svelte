@@ -15,6 +15,7 @@
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
+		"format:check": "prettier --plugin-search-dir . --check .",
 		"db:generate": "drizzle-kit generate:pg",
 		"db:migrate": "pnpm run exec ./drizzle/migrate.ts",
 		"db:seed": "pnpm run exec ./drizzle/seed.ts",

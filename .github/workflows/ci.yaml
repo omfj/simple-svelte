@@ -31,6 +31,9 @@ jobs:
       - run: pnpm db:generate
       - run: pnpm db:migrate
 
+      - name: Check style
+        run: pnpm format:check
+
       - name: Lint
         run: pnpm lint
 
