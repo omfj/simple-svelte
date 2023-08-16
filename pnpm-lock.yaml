@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -9,8 +9,8 @@ dependencies:
     specifier: ^16.3.1
     version: 16.3.1
   drizzle-orm:
-    specifier: ^0.27.0
-    version: 0.27.0(@types/pg@8.10.2)(pg@8.11.1)
+    specifier: ^0.28.0
+    version: 0.28.0(@types/pg@8.10.2)(pg@8.11.1)
   pg:
     specifier: ^8.11.1
     version: 8.11.1
@@ -1271,8 +1271,8 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.27.0(@types/pg@8.10.2)(pg@8.11.1):
-    resolution: {integrity: sha512-LGiJ0icB+wQwgbSCOvAjONY8Ec6G/EDzQQP5PmUaQYeI9OqgpVKHC2T1fFIbvk5dabWsbokJ5NOciVAxriStig==}
+  /drizzle-orm@0.28.0(@types/pg@8.10.2)(pg@8.11.1):
+    resolution: {integrity: sha512-iNNNtWM6YwXWI5vAkgFx+FPtZvo/ZnLh8uZV1e7+Alhan5ZS0q3tqbGFP8uCMngW+hNbJqsaHsxPw6AN87urmw==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
