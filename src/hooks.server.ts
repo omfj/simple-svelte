@@ -18,9 +18,8 @@ export const handle = (async ({ event, resolve }) => {
 			else {
 				event.locals.user = {
 					id: data.user.id,
-					username: data.user.username,
 					email: data.user.email,
-					createdAt: data.user.createdAt,
+					username: data.user.username,
 				};
 			}
 		}

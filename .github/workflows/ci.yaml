@@ -28,13 +28,11 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - uses: ./.github/actions/pnpm-install
 
-      - run: pnpm db:generate
+      - run: pnpm db:check-migrations
       - run: pnpm db:migrate
 
-      - name: Check style
-        run: pnpm format:check
-
-      - name: Lint
-        run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm format:check
+      - run: pnpm lint
 
       - run: pnpm build

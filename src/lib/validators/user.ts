@@ -1,9 +1,10 @@
-import { z } from 'zod';
+import { selectUserSchema } from '$lib/db/schemas';
+import type { z } from 'zod';
 
-export const sessionUserSchema = z.object({
-	id: z.string(),
-	email: z.string().email(),
-	username: z.string(),
+export const sessionUserSchema = selectUserSchema.pick({
+	id: true,
+	email: true,
+	username: true,
 });
 
 export type SessionUser = z.infer<typeof sessionUserSchema>;
