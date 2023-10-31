@@ -20,4 +20,3 @@ Also has a simple self-made auth. Uses (drizzle-orm)[https://github.com/drizzle-
 
 - Remove session table and use JWT for session management.
 - Display posts and form to create posts
-
