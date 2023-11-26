@@ -18,7 +18,7 @@
 		"format:check": "prettier --check .",
 		"db:generate": "drizzle-kit generate:pg",
 		"db:migrate": "pnpm run-ts ./drizzle/migrate.ts",
-		"db:check-migrations": "pnpm run exec ./drizzle/check-migrations.ts",
+		"db:check-migrations": "pnpm run-ts ./drizzle/check-migrations.ts",
 		"db:seed": "pnpm run-ts ./drizzle/seed.ts",
 		"db:studio": "drizzle-kit studio",
 		"docker:up": "docker-compose up -d",
