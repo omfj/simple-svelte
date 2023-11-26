@@ -11,7 +11,7 @@
 			if (result.type === 'success') {
 				goto('/');
 			}
-		}
+		},
 	});
 </script>
 
