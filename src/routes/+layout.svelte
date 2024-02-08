@@ -3,16 +3,15 @@
 	import Header from '$lib/components/Header.svelte';
 	import { Toaster } from 'svelte-sonner';
 	import { user } from '$lib/stores/user';
-	import type { LayoutServerData } from './$types';
 
-	export let data: LayoutServerData;
+	let { data, children } = $props();
 
-	$: user.set(data.user);
+	user.set(data.user);
 </script>
 
 <Toaster />
 <Header />
 
 <main class="max-w-2xl mx-auto w-full px-4">
-	<slot />
+	{@render children()}
 </main>

@@ -1,7 +1,8 @@
 import { getUserByUsername } from '$lib/db/auth';
-import { error, type Load } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
-export const load = (async ({ params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	const { username } = params;
 
 	if (!username) {
@@ -22,4 +23,4 @@ export const load = (async ({ params }) => {
 			createdAt: data.user.createdAt,
 		},
 	};
-}) satisfies Load;
+};

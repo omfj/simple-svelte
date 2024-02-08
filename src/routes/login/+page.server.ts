@@ -2,13 +2,14 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { createSession, validateUser } from '$lib/db/auth';
-import { DEFAULT_SESSION_LENGTH } from '$lib/constants';
+import { DEFAULT_SESSION_LENGTH, SESSION_COOKIE_NAME } from '$lib/auth';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 import { loginSchema } from '$lib/validators/login';
+import { dev } from '$app/environment';
 
-export const load = (async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals }) => {
 	if (locals.user) {
-		throw redirect(304, '/');
+		return redirect(304, '/');
 	}
 
 	const form = await superValidate(loginSchema);
@@ -16,9 +17,9 @@ export const load = (async ({ locals }) => {
 	return {
 		form,
 	};
-}) satisfies PageServerLoad;
+};
 
-export const actions = {
+export const actions: Actions = {
 	default: async ({ request, cookies }) => {
 		const form = await superValidate(request, loginSchema);
 
@@ -54,15 +55,15 @@ export const actions = {
 			});
 		}
 
-		cookies.set('session', createSessionData.sessionId, {
-			httpOnly: import.meta.env.PROD,
-			secure: import.meta.env.PROD,
-			sameSite: 'strict',
+		cookies.set(SESSION_COOKIE_NAME, createSessionData.sessionId, {
+			httpOnly: dev,
+			sameSite: 'lax',
 			maxAge: DEFAULT_SESSION_LENGTH / 1000,
+			path: '/',
 		});
 
 		return {
 			form,
 		};
 	},
-} satisfies Actions;
+};
