@@ -16,7 +16,10 @@ Also has a simple self-made auth. Uses (drizzle-orm)[https://github.com/drizzle-
 8. ...
 9. Profit!
 
+## Deploy
+
+I recommend using [Fly.io](https://fly.io) to deploy this project. It's a great service and it's free/cheap for small projects.
+
 ## TODO
 
-- Remove session table and use JWT for session management.
 - Display posts and form to create posts

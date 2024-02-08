@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { db } from './drizzle';
 import { sessions, users, type User } from './schemas';
-import bcrypt from 'bcryptjs';
+import { bcrypt } from '$lib/auth';
 
 type BaseError = {
 	message: string;
@@ -44,7 +44,7 @@ export const createUser: CreateUserFunction = async (email, username, password) 
 			.values({
 				email,
 				username,
-				password: bcrypt.hashSync(password, 12),
+				password: await bcrypt.hash(password),
 			})
 			.returning();
 
@@ -81,7 +81,7 @@ export const validateUser: ValidateUserFunction = async (username, password) => 
 			};
 		}
 
-		if (!bcrypt.compareSync(password, user.password)) {
+		if (!bcrypt.verify(password, user.password)) {
 			return {
 				data: null,
 				error: {
