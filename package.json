@@ -36,7 +36,7 @@
 		"oslo": "^1.1.0",
 		"pg": "8.11.3",
 		"postgres": "3.4.3",
-		"svelte-sonner": "0.3.17",
+		"svelte-sonner": "0.3.19",
 		"sveltekit-superforms": "1.13.4",
 		"zod": "3.22.4"
 	},
