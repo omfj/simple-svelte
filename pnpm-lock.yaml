@@ -15,11 +15,11 @@ dependencies:
     specifier: 16.4.4
     version: 16.4.4
   drizzle-orm:
-    specifier: 0.29.3
-    version: 0.29.3(@types/pg@8.11.0)(pg@8.11.3)(postgres@3.4.3)
+    specifier: 0.30.10
+    version: 0.30.10(@types/pg@8.11.0)(pg@8.11.3)(postgres@3.4.3)
   drizzle-zod:
     specifier: 0.5.1
-    version: 0.5.1(drizzle-orm@0.29.3)(zod@3.22.4)
+    version: 0.5.1(drizzle-orm@0.30.10)(zod@3.22.4)
   nanoid:
     specifier: ^5.0.5
     version: 5.0.5
@@ -2218,20 +2218,23 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.29.3(@types/pg@8.11.0)(pg@8.11.3)(postgres@3.4.3):
-    resolution: {integrity: sha512-uSE027csliGSGYD0pqtM+SAQATMREb3eSM/U8s6r+Y0RFwTKwftnwwSkqx3oS65UBgqDOM0gMTl5UGNpt6lW0A==}
+  /drizzle-orm@0.30.10(@types/pg@8.11.0)(pg@8.11.3)(postgres@3.4.3):
+    resolution: {integrity: sha512-IRy/QmMWw9lAQHpwbUh1b8fcn27S/a9zMIzqea1WNOxK9/4EB8gIo+FZWLiPXzl2n9ixGSv8BhsLZiOppWEwBw==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
+      '@electric-sql/pglite': '>=0.1.1'
       '@libsql/client': '*'
       '@neondatabase/serverless': '>=0.1'
+      '@op-engineering/op-sqlite': '>=2'
       '@opentelemetry/api': ^1.4.1
       '@planetscale/database': '>=1'
       '@types/better-sqlite3': '*'
       '@types/pg': '*'
       '@types/react': '>=18'
       '@types/sql.js': '*'
-      '@vercel/postgres': '*'
+      '@vercel/postgres': '>=0.8.0'
+      '@xata.io/client': '*'
       better-sqlite3: '>=7'
       bun-types: '*'
       expo-sqlite: '>=13.2.0'
@@ -2248,9 +2251,13 @@ packages:
         optional: true
       '@cloudflare/workers-types':
         optional: true
+      '@electric-sql/pglite':
+        optional: true
       '@libsql/client':
         optional: true
       '@neondatabase/serverless':
+        optional: true
+      '@op-engineering/op-sqlite':
         optional: true
       '@opentelemetry/api':
         optional: true
@@ -2265,6 +2272,8 @@ packages:
       '@types/sql.js':
         optional: true
       '@vercel/postgres':
+        optional: true
+      '@xata.io/client':
         optional: true
       better-sqlite3:
         optional: true
@@ -2294,13 +2303,13 @@ packages:
       postgres: 3.4.3
     dev: false
 
-  /drizzle-zod@0.5.1(drizzle-orm@0.29.3)(zod@3.22.4):
+  /drizzle-zod@0.5.1(drizzle-orm@0.30.10)(zod@3.22.4):
     resolution: {integrity: sha512-C/8bvzUH/zSnVfwdSibOgFjLhtDtbKYmkbPbUCq46QZyZCH6kODIMSOgZ8R7rVjoI+tCj3k06MRJMDqsIeoS4A==}
     peerDependencies:
       drizzle-orm: '>=0.23.13'
       zod: '*'
     dependencies:
-      drizzle-orm: 0.29.3(@types/pg@8.11.0)(pg@8.11.3)(postgres@3.4.3)
+      drizzle-orm: 0.30.10(@types/pg@8.11.0)(pg@8.11.3)(postgres@3.4.3)
       zod: 3.22.4
     dev: false
 
