@@ -1,26 +1,26 @@
-import { redirect } from '@sveltejs/kit';
-import type { Actions, PageServerLoad } from './$types';
-import { deleteSession } from '$lib/db/auth';
-import { SESSION_COOKIE_NAME } from '$lib/auth';
+import { fail, redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ locals }) => {
-	if (locals.user) {
-		return redirect(304, '/');
-	}
-
-	return redirect(303, '/login');
-};
+import type { Actions } from './$types';
+import { lucia } from '$lib/server/auth/lucia';
 
 export const actions: Actions = {
-	default: async ({ cookies }) => {
-		const sessionId = cookies.get(SESSION_COOKIE_NAME);
+	default: async (event) => {
+		if (!event.locals.session) {
+			return fail(401);
+		}
 
-		if (sessionId) await deleteSession(sessionId);
-
-		cookies.delete(SESSION_COOKIE_NAME, {
+		await lucia.invalidateSession(event.locals.session.id);
+		const sessionCookie = lucia.createBlankSessionCookie();
+		event.cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '/',
+			...sessionCookie.attributes,
 		});
 
-		throw redirect(303, '/');
+		return new Response(null, {
+			status: 301,
+			headers: {
+				Location: '/',
+			}
+		});
 	},
 };

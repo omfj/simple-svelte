@@ -31,7 +31,7 @@
 		<li>
 			<a class="text-blue-500 hover:no-underline underline" href="https://orm.drizzle.team/"
 				>Drizzle ORM</a
-			> for database access
+			> for database access (using SQLite)
 		</li>
 		<li>
 			<a class="text-blue-500 hover:no-underline underline" href="https://svelte.dev/">Svelte</a> for
@@ -47,11 +47,6 @@
 			<a class="text-blue-500 hover:no-underline underline" href="https://www.typescriptlang.org/"
 				>TypeScript</a
 			> for type-safety
-		</li>
-		<li>
-			<a class="text-blue-500 hover:no-underline underline" href="https://superforms.rocks/"
-				>SuperForm</a
-			> for form handling
 		</li>
 	</ul>
 </div>

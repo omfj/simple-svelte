@@ -1,12 +1,12 @@
 {
   "version": "5",
-  "dialect": "pg",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1698792531003,
-      "tag": "0000_conscious_jazinda",
+      "when": 1714669282631,
+      "tag": "0000_petite_squirrel_girl",
       "breakpoints": true
     }
   ]
