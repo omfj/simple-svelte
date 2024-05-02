@@ -9,19 +9,19 @@ importers:
   .:
     dependencies:
       '@libsql/client':
-        specifier: ^0.6.0
+        specifier: 0.6.0
         version: 0.6.0
       '@lucia-auth/adapter-drizzle':
-        specifier: ^1.0.7
+        specifier: 1.0.7
         version: 1.0.7(lucia@3.2.0)
       '@lucia-auth/adapter-sqlite':
-        specifier: ^3.0.1
+        specifier: 3.0.1
         version: 3.0.1(@libsql/client@0.6.0)(lucia@3.2.0)
       '@sveltejs/adapter-node':
         specifier: 5.0.1
         version: 5.0.1(@sveltejs/kit@2.5.7(@sveltejs/vite-plugin-svelte@3.1.0(svelte@5.0.0-next.121)(vite@5.2.11(@types/node@20.12.8)))(svelte@5.0.0-next.121)(vite@5.2.11(@types/node@20.12.8)))
       arctic:
-        specifier: ^1.8.0
+        specifier: 1.8.0
         version: 1.8.0
       drizzle-orm:
         specifier: 0.30.10
@@ -30,10 +30,10 @@ importers:
         specifier: 0.5.1
         version: 0.5.1(drizzle-orm@0.30.10(@libsql/client@0.6.0)(@types/pg@8.11.5)(pg@8.11.5))(zod@3.23.5)
       lucia:
-        specifier: ^3.2.0
+        specifier: 3.2.0
         version: 3.2.0
       oslo:
-        specifier: ^1.2.0
+        specifier: 1.2.0
         version: 1.2.0
       svelte-sonner:
         specifier: 0.3.22
@@ -52,7 +52,7 @@ importers:
         specifier: 2.5.7
         version: 2.5.7(@sveltejs/vite-plugin-svelte@3.1.0(svelte@5.0.0-next.121)(vite@5.2.11(@types/node@20.12.8)))(svelte@5.0.0-next.121)(vite@5.2.11(@types/node@20.12.8))
       '@sveltejs/vite-plugin-svelte':
-        specifier: ^3.1.0
+        specifier: 3.1.0
         version: 3.1.0(svelte@5.0.0-next.121)(vite@5.2.11(@types/node@20.12.8))
       '@typescript-eslint/eslint-plugin':
         specifier: 7.8.0
@@ -64,7 +64,7 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.38)
       dotenv:
-        specifier: ^16.4.5
+        specifier: 16.4.5
         version: 16.4.5
       drizzle-kit:
         specifier: 0.20.17
