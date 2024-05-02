@@ -16,11 +16,6 @@ export const actions: Actions = {
 			...sessionCookie.attributes,
 		});
 
-		return new Response(null, {
-			status: 301,
-			headers: {
-				Location: '/',
-			}
-		});
+		redirect(302, '/');
 	},
 };

@@ -11,15 +11,10 @@ Also has a simple self-made auth. Uses (drizzle-orm)[https://github.com/drizzle-
 3. Run `pnpm db:migrate`
 4. Run `pnpm dev`
 5. Open `localhost:5173` in your browser
-6. Register a new user
-7. Login
-8. ...
-9. Profit!
+6. Login with GitHub
+7. ...
+8. Profit!
 
 ## Deploy
 
 I recommend using [Fly.io](https://fly.io) to deploy this project. It's a great service and it's free/cheap for small projects.
-
-## TODO
-
-- Display posts and form to create posts
