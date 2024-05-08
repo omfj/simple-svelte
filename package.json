@@ -34,7 +34,7 @@
 		"lucia": "3.2.0",
 		"oslo": "1.2.0",
 		"svelte-sonner": "0.3.22",
-		"zod": "3.23.5"
+		"zod": "3.23.8"
 	},
 	"devDependencies": {
 		"@playwright/test": "1.43.1",
