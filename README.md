@@ -1,3 +1,5 @@
+> No need `sv create` is soo good now.
+
 # Simple Svelte
 
 This is a simple Svelte project that can be used as a template for other projects.
