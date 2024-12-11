@@ -44,7 +44,7 @@
 		"@typescript-eslint/eslint-plugin": "7.8.0",
 		"@typescript-eslint/parser": "7.8.0",
 		"autoprefixer": "10.4.19",
-		"dotenv": "16.4.5",
+		"dotenv": "16.4.7",
 		"drizzle-kit": "0.20.17",
 		"eslint": "9.1.1",
 		"eslint-config-prettier": "9.1.0",
